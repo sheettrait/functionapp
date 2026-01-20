@@ -1,0 +1,59 @@
+{
+  "intent_to_function": [
+    {
+      "intent": "patient_profile",
+      "description": "Background, age, sex, chronic/risk flags",
+      "function": "get_patient_profile"
+    },
+    {
+      "intent": "encounter_status",
+      "description": "Current admission status, ward, bed, diagnosis",
+      "function": "get_latest_encounter"
+    },
+    {
+      "intent": "vitals_latest",
+      "description": "Latest vitals",
+      "function": "get_latest_vitals"
+    },
+    {
+      "intent": "vitals_trend",
+      "description": "Vitals trend over time",
+      "function": "get_vitals_range"
+    },
+    {
+      "intent": "intake_output",
+      "description": "I/O balance and output sufficiency",
+      "function": "get_io_balance"
+    },
+    {
+      "intent": "nursing_observation",
+      "description": "Nursing observations by shift",
+      "function": "get_latest_nursing_note"
+    },
+    {
+      "intent": "physician_assessment",
+      "description": "Physician assessment and plan",
+      "function": "get_physician_assessment"
+    },
+    {
+      "intent": "weekly_summary",
+      "description": "Weekly summary",
+      "function": "get_weekly_summary"
+    },
+    {
+      "intent": "lab_result",
+      "description": "Lab results by test name",
+      "function": "get_lab_result"
+    },
+    {
+      "intent": "medication",
+      "description": "Active medications",
+      "function": "get_active_medications"
+    },
+    {
+      "intent": "imaging_impression",
+      "description": "Latest imaging impression",
+      "function": "get_latest_imaging_impression"
+    }
+  ]
+}

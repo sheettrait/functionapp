@@ -1,0 +1,113 @@
+{
+  "functions": [
+    {
+      "name": "get_patient_profile",
+      "table": "Patient",
+      "description": "Patient demographics and chronic/risk flags",
+      "required": ["patient_id"],
+      "filters": ["patient_id"],
+      "order_by": "PatientID",
+      "limit_default": 1
+    },
+    {
+      "name": "get_latest_encounter",
+      "table": "Encounter",
+      "description": "Most recent admission/encounter context",
+      "required": ["patient_id"],
+      "filters": ["patient_id"],
+      "order_by": "AdmissionDateTime",
+      "latest": true,
+      "limit_default": 1
+    },
+    {
+      "name": "get_latest_vitals",
+      "table": "Vitals",
+      "description": "Latest vital signs",
+      "required": ["patient_id"],
+      "filters": ["patient_id", "encounter_id", "from", "to", "shift"],
+      "order_by": "DateTime",
+      "latest": true,
+      "limit_default": 1
+    },
+    {
+      "name": "get_vitals_range",
+      "table": "Vitals",
+      "description": "Vitals trend over a time range",
+      "required": ["patient_id", "from", "to"],
+      "filters": ["patient_id", "encounter_id", "from", "to", "shift"],
+      "order_by": "DateTime",
+      "latest": false,
+      "limit_default": 50
+    },
+    {
+      "name": "get_io_balance",
+      "table": "IntakeOutput",
+      "description": "Intake/output net balance by shift or range",
+      "required": ["patient_id", "from", "to"],
+      "filters": ["patient_id", "encounter_id", "from", "to", "shift"],
+      "order_by": "RecordEnd",
+      "latest": false,
+      "limit_default": 50
+    },
+    {
+      "name": "get_latest_nursing_note",
+      "table": "NursingNote",
+      "description": "Most recent nursing note",
+      "required": ["patient_id"],
+      "filters": ["patient_id", "encounter_id", "from", "to", "shift"],
+      "order_by": "NoteDateTime",
+      "latest": true,
+      "limit_default": 1
+    },
+    {
+      "name": "get_physician_assessment",
+      "table": "PhysicianProgressNote",
+      "description": "Latest physician assessment/plan",
+      "required": ["patient_id"],
+      "filters": ["patient_id", "encounter_id", "date"],
+      "order_by": "NoteDate",
+      "latest": true,
+      "limit_default": 1
+    },
+    {
+      "name": "get_weekly_summary",
+      "table": "WeeklySummary",
+      "description": "Weekly course summary",
+      "required": ["patient_id"],
+      "filters": ["patient_id", "encounter_id", "week_start", "week_end"],
+      "order_by": "SummaryDate",
+      "latest": true,
+      "limit_default": 1
+    },
+    {
+      "name": "get_lab_result",
+      "table": "LabResult",
+      "description": "Lab results by test name and time range",
+      "required": ["patient_id", "test_name"],
+      "filters": ["patient_id", "encounter_id", "test_name", "from", "to"],
+      "order_by": "SpecimenDateTime",
+      "latest": true,
+      "limit_default": 10
+    },
+    {
+      "name": "get_active_medications",
+      "table": "Medication",
+      "description": "Active medications",
+      "required": ["patient_id"],
+      "filters": ["patient_id", "encounter_id", "medication_name", "from", "to"],
+      "order_by": "StartDateTime",
+      "latest": true,
+      "limit_default": 50
+    },
+    {
+      "name": "get_latest_imaging_impression",
+      "table": "ImagingExam",
+      "description": "Latest imaging impression",
+      "required": ["patient_id"],
+      "filters": ["patient_id", "encounter_id", "exam_type", "from", "to"],
+      "order_by": "ExamDateTime",
+      "latest": true,
+      "limit_default": 1
+    }
+  ]
+}

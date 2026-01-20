@@ -1,0 +1,192 @@
+{
+  "Patient": {
+    "description": "Patient master record (static demographics).",
+    "columns": [
+      {"name": "PatientID", "semantic": "patient identifier"},
+      {"name": "Sex", "semantic": "biological sex"},
+      {"name": "DateOfBirth", "semantic": "date of birth"},
+      {"name": "Age", "semantic": "age in years"},
+      {"name": "ChronicConditions", "semantic": "chronic disease list"},
+      {"name": "RiskFlags", "semantic": "high-risk flags"},
+      {"name": "City", "semantic": "city of residence"},
+      {"name": "NationalID_Fake", "semantic": "mock national ID"}
+    ],
+    "typical_questions": [
+      "Who is the patient?",
+      "What is the patient's age and sex?",
+      "What chronic conditions or risk flags does the patient have?"
+    ]
+  },
+  "Encounter": {
+    "description": "Admission/encounter timeline anchor (when/where).",
+    "columns": [
+      {"name": "EncounterID", "semantic": "encounter identifier"},
+      {"name": "PatientID", "semantic": "patient identifier"},
+      {"name": "AdmissionDateTime", "semantic": "admit datetime"},
+      {"name": "DischargeDateTime", "semantic": "discharge datetime"},
+      {"name": "Acuity", "semantic": "ICU or general"},
+      {"name": "Ward", "semantic": "ward"},
+      {"name": "Room", "semantic": "room"},
+      {"name": "Bed", "semantic": "bed"},
+      {"name": "AdmittingDiagnosis", "semantic": "reason for admission"},
+      {"name": "DischargeDisposition", "semantic": "discharge destination"}
+    ],
+    "typical_questions": [
+      "Is the patient currently admitted?",
+      "Which ward/bed is the patient in?",
+      "What was the admitting diagnosis and discharge disposition?"
+    ]
+  },
+  "Vitals": {
+    "description": "Structured vital signs per timestamp or shift.",
+    "columns": [
+      {"name": "VitalsID", "semantic": "vitals row id"},
+      {"name": "EncounterID", "semantic": "encounter identifier"},
+      {"name": "PatientID", "semantic": "patient identifier"},
+      {"name": "DateTime", "semantic": "vital datetime"},
+      {"name": "Shift", "semantic": "shift (day/evening/night)"},
+      {"name": "Temp_C", "semantic": "temperature Celsius"},
+      {"name": "HR_bpm", "semantic": "heart rate"},
+      {"name": "BP_Sys_mmHg", "semantic": "systolic BP"},
+      {"name": "BP_Dia_mmHg", "semantic": "diastolic BP"},
+      {"name": "RR_bpm", "semantic": "respiratory rate"},
+      {"name": "SpO2_pct", "semantic": "pulse oximetry"},
+      {"name": "PainScore_0_10", "semantic": "pain score"}
+    ],
+    "typical_questions": [
+      "Latest vitals today?",
+      "What was the blood pressure last night?",
+      "Show SpO2/HR/BP trend over a range."
+    ]
+  },
+  "IntakeOutput": {
+    "description": "Fluid balance: intake/output per period or shift.",
+    "columns": [
+      {"name": "IO_ID", "semantic": "intake-output row id"},
+      {"name": "EncounterID", "semantic": "encounter identifier"},
+      {"name": "PatientID", "semantic": "patient identifier"},
+      {"name": "RecordStart", "semantic": "record window start"},
+      {"name": "RecordEnd", "semantic": "record window end"},
+      {"name": "Shift", "semantic": "shift"},
+      {"name": "Intake_Oral_ml", "semantic": "oral intake ml"},
+      {"name": "Intake_IV_ml", "semantic": "IV intake ml"},
+      {"name": "Intake_TubeFeed_ml", "semantic": "tube feed ml"},
+      {"name": "Output_Urine_ml", "semantic": "urine output ml"},
+      {"name": "Output_Drain_ml", "semantic": "drain output ml"},
+      {"name": "Output_Stool_count", "semantic": "stool count"},
+      {"name": "Output_Emesis_ml", "semantic": "emesis ml"},
+      {"name": "NetBalance_ml", "semantic": "net fluid balance"}
+    ],
+    "typical_questions": [
+      "Is urine output sufficient?",
+      "What was yesterday's net balance?",
+      "Drain/emesis amounts in ICU?"
+    ]
+  },
+  "NursingNote": {
+    "description": "Narrative nursing notes per shift.",
+    "columns": [
+      {"name": "NursingNoteID", "semantic": "note id"},
+      {"name": "EncounterID", "semantic": "encounter identifier"},
+      {"name": "PatientID", "semantic": "patient identifier"},
+      {"name": "NoteDateTime", "semantic": "note datetime"},
+      {"name": "Shift", "semantic": "shift"},
+      {"name": "NoteType", "semantic": "note type"},
+      {"name": "NurseID_Fake", "semantic": "nurse id"},
+      {"name": "NoteText", "semantic": "narrative text"}
+    ],
+    "typical_questions": [
+      "What did nursing observe this shift?",
+      "Any respiratory/wound/drain/I-O remarks?",
+      "Key points for this shift?"
+    ]
+  },
+  "PhysicianProgressNote": {
+    "description": "Daily physician progress (SOAP/assessment).",
+    "columns": [
+      {"name": "PhysicianProgressNoteID", "semantic": "physician note id"},
+      {"name": "EncounterID", "semantic": "encounter identifier"},
+      {"name": "PatientID", "semantic": "patient identifier"},
+      {"name": "NoteDate", "semantic": "note date"},
+      {"name": "ProviderID_Fake", "semantic": "provider id"},
+      {"name": "Service", "semantic": "service/department"},
+      {"name": "NoteText", "semantic": "assessment/plan text"}
+    ],
+    "typical_questions": [
+      "How does the physician assess the patient today?",
+      "What is the current treatment plan?"
+    ]
+  },
+  "WeeklySummary": {
+    "description": "Weekly high-level course summary.",
+    "columns": [
+      {"name": "WeeklySummaryID", "semantic": "weekly summary id"},
+      {"name": "EncounterID", "semantic": "encounter identifier"},
+      {"name": "PatientID", "semantic": "patient identifier"},
+      {"name": "WeekStartDate", "semantic": "week start"},
+      {"name": "WeekEndDate", "semantic": "week end"},
+      {"name": "SummaryDate", "semantic": "summary authored date"},
+      {"name": "SummaryText", "semantic": "course summary"}
+    ],
+    "typical_questions": [
+      "What happened this week?",
+      "Weekly course and treatment summary."
+    ]
+  },
+  "LabResult": {
+    "description": "Structured lab values with flags.",
+    "columns": [
+      {"name": "LabResultID", "semantic": "lab row id"},
+      {"name": "EncounterID", "semantic": "encounter identifier"},
+      {"name": "PatientID", "semantic": "patient identifier"},
+      {"name": "SpecimenDateTime", "semantic": "specimen datetime"},
+      {"name": "LabType", "semantic": "lab category"},
+      {"name": "TestName", "semantic": "test name"},
+      {"name": "ResultValue", "semantic": "result value"},
+      {"name": "Unit", "semantic": "unit"},
+      {"name": "Flag", "semantic": "abnormal flag (H/L/Normal)"}
+    ],
+    "typical_questions": [
+      "What was yesterday's creatinine?",
+      "Any abnormal labs?",
+      "Show WBC/Hb trend."
+    ]
+  },
+  "Medication": {
+    "description": "Medication orders and administration window.",
+    "columns": [
+      {"name": "MedicationID", "semantic": "med row id"},
+      {"name": "EncounterID", "semantic": "encounter identifier"},
+      {"name": "PatientID", "semantic": "patient identifier"},
+      {"name": "MedicationName", "semantic": "drug name"},
+      {"name": "Dose", "semantic": "dose"},
+      {"name": "Route", "semantic": "route (PO/IV/etc)"},
+      {"name": "Frequency", "semantic": "frequency"},
+      {"name": "StartDateTime", "semantic": "start datetime"},
+      {"name": "EndDateTime", "semantic": "stop datetime"},
+      {"name": "Indication", "semantic": "indication"}
+    ],
+    "typical_questions": [
+      "Is the patient on antibiotics now?",
+      "What is this drug for?"
+    ]
+  },
+  "ImagingExam": {
+    "description": "Imaging reports (findings/impression).",
+    "columns": [
+      {"name": "ImagingExamID", "semantic": "imaging row id"},
+      {"name": "EncounterID", "semantic": "encounter identifier"},
+      {"name": "PatientID", "semantic": "patient identifier"},
+      {"name": "ExamDateTime", "semantic": "exam datetime"},
+      {"name": "ExamType", "semantic": "exam type (CXR/CT/etc)"},
+      {"name": "Modality", "semantic": "imaging modality"},
+      {"name": "StudyName", "semantic": "study name"},
+      {"name": "FindingText", "semantic": "findings"},
+      {"name": "ImpressionText", "semantic": "impression/conclusion"}
+    ],
+    "typical_questions": [
+      "Does the X-ray show pneumonia?",
+      "What is the impression of the latest CT?"
+    ]
+  }
+}

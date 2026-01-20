@@ -1,0 +1,41 @@
+{
+  "tool_name": "medical_query_router",
+  "description": "Route a user question to a predefined query template and extract parameters.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "intent": {
+        "type": "string",
+        "description": "One of the supported intents in router_rules.json"
+      },
+      "function": {
+        "type": "string",
+        "description": "One of the supported query templates in query_templates.json"
+      },
+      "parameters": {
+        "type": "object",
+        "description": "Parameters for the chosen function",
+        "properties": {
+          "patient_id": {"type": "string"},
+          "encounter_id": {"type": "string"},
+          "from": {"type": "string", "description": "ISO datetime"},
+          "to": {"type": "string", "description": "ISO datetime"},
+          "date": {"type": "string", "description": "ISO date"},
+          "shift": {"type": "string", "description": "day/evening/night"},
+          "test_name": {"type": "string"},
+          "medication_name": {"type": "string"},
+          "exam_type": {"type": "string"},
+          "week_start": {"type": "string", "description": "ISO date"},
+          "week_end": {"type": "string", "description": "ISO date"}
+        },
+        "additionalProperties": false
+      },
+      "notes": {
+        "type": "string",
+        "description": "Optional reasoning or clarification needs"
+      }
+    },
+    "required": ["intent", "function", "parameters"],
+    "additionalProperties": false
+  }
+}
