@@ -43,4 +43,6 @@ jobs:
           app-name: 'fun360app311'
           package: functionapp.zip
           publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+          scm-do-build-during-deployment: true
+          enable-oryx-build: true
           
