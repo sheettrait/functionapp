@@ -552,46 +552,5 @@ def build_query(table: str, body: Dict[str, Any]) -> Tuple[str, List[Any]]:
 
     return query, params
 
-
-def rows_to_dict(cursor: pyodbc.Cursor, rows: List[pyodbc.Row]) -> List[Dict[str, Any]]:
-    col_names = [col[0] for col in cursor.description]
-    return [dict(zip(col_names, row)) for row in rows]
-
-
-def main(req: func.HttpRequest) -> func.HttpResponse:
-    logging.info("query function processing a request")
-
-    try:
-        body = req.get_json()
-    except ValueError:
-        return func.HttpResponse("Invalid JSON body", status_code=400)
-
-    table = body.get("table")
-    if not table or table not in ALLOWED_TABLES:
-        return func.HttpResponse("Missing or unsupported table", status_code=400)
-
-    try:
-        query, params = build_query(table, body)
-    except ValueError as exc:
-        return func.HttpResponse(str(exc), status_code=400)
-
-    try:
-        conn = get_connection()
-        cursor = conn.cursor()
-        cursor.execute(query, params)
-        rows = cursor.fetchall()
-    except Exception as exc:  # noqa: BLE001
-        logging.exception("Query execution failed")
-        return func.HttpResponse(f"Query failed: {exc}", status_code=500)
-    finally:
-        try:
-            conn.close()
-        except Exception:  # noqa: BLE001
-            pass
-
-    result = rows_to_dict(cursor, rows)
-    return func.HttpResponse(
-        json.dumps({"table": table, "count": len(result), "rows": result}, default=str),
-        status_code=200,
-        mimetype="application/json",
     )
+def rows_to_dict(cursor: pyodbc.Cursor, rows: List[pyodbc.Row]) -> List[Dict[str, Any]]:
