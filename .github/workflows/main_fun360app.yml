@@ -4,6 +4,8 @@
 
 name: Deploy Function App (fun360app311)
 
+# Trigger update for botfunction deployment.
+
 # Trigger update to ensure GitHub Actions picks up latest configuration.
 
 on:
