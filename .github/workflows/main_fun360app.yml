@@ -2,7 +2,7 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 # More info on Python, GitHub Actions, and Azure Functions: https://aka.ms/python-webapps-actions
 
-name: Build and deploy Python project to Azure Function App - fun360app311
+name: Deploy Function App (fun360app311)
 
 on:
   push:
@@ -10,38 +10,18 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  PYTHON_VERSION: '3.11'
-
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup Python version
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: Install system dependencies for pyodbc
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y unixodbc-dev
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Zip artifact for deployment
-        run: |
-          zip -r functionapp.zip . -x "*.git*" "*.venv*" ".python_packages/*" "deploy.zip"
 
       - name: Deploy to Azure Functions
         uses: Azure/functions-action@v1
         with:
           app-name: 'fun360app311'
-          package: functionapp.zip
+          package: '.'
           publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
           scm-do-build-during-deployment: true
           enable-oryx-build: true
