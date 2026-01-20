@@ -28,4 +28,4 @@ steps:
     appType: 'functionAppLinux'
     appName: 'fun360app'
     package: '$(Build.ArtifactStagingDirectory)/functionapp.zip'
-    runtimeStack: 'PYTHON|3.13'
+    runtimeStack: 'PYTHON|3.11'
